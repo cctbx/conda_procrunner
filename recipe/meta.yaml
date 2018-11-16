@@ -1,0 +1,53 @@
+{% set version = "0.8.0" %}
+
+package:
+  name: procrunner
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/DiamondLightSource/python-procrunner.git
+  git_tag: v{{ version }}
+
+build:
+  number: 0
+  script: python setup.py install
+
+requirements:
+  host:
+    - python {{ python }}
+    - pytest-runner
+    - setuptools
+    - six
+  run:
+    - python
+    - pytest-runner
+    - setuptools
+    - six
+
+test:
+  requires:
+    - pytest
+    - mock
+  source_files:
+    - tests/test_procrunner.py
+    - tests/test_procrunner_resolution.py
+    - tests/test_procrunner_system.py
+  imports:
+    - procrunner
+  commands:
+    - python tests/test_procrunner.py
+    - python tests/test_procrunner_resolution.py
+    - python tests/test_procrunner_system.py
+    - conda inspect linkages -p $PREFIX procrunner  # [not win]
+    - conda inspect objects -p $PREFIX procrunner  # [osx]
+
+about:
+  home: https://github.com/DiamondLightSource/python-procrunner
+  summary: Versatile utility function to run external processes
+  description: Versatile utility function to run external processes
+  dev_url: https://github.com/DiamondLightSource/python-procrunner
+  doc_url: https://procrunner.readthedocs.io/en/latest/
+
+extra:
+  recipe-maintainers:
+    - bkpoon
