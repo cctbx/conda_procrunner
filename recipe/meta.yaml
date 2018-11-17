@@ -20,8 +20,6 @@ requirements:
     - six
   run:
     - python
-    - pytest-runner
-    - setuptools
     - six
 
 test:
