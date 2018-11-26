@@ -27,15 +27,11 @@ test:
     - pytest
     - mock
   source_files:
-    - tests/test_procrunner.py
-    - tests/test_procrunner_resolution.py
-    - tests/test_procrunner_system.py
+    - tests
   imports:
     - procrunner
   commands:
-    - python tests/test_procrunner.py
-    - python tests/test_procrunner_resolution.py
-    - python tests/test_procrunner_system.py
+    - pytest tests
     - conda inspect linkages -p $PREFIX procrunner  # [not win]
     - conda inspect objects -p $PREFIX procrunner  # [osx]
 
