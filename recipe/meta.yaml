@@ -1,38 +1,32 @@
+{% set name = "procrunner" %}
 {% set version = "0.8.0" %}
 
 package:
-  name: procrunner
-  version: {{ version }}
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
 
 source:
-  git_url: https://github.com/DiamondLightSource/python-procrunner.git
-  git_tag: v{{ version }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 2c1712fd10a626440ac3925e7458cc39f213f5a551f94dc90894ac34233c04d0
 
 build:
   noarch: python
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv "
 
 requirements:
   host:
     - python
     - pytest-runner
-    - setuptools
+    - pip
     - six
   run:
     - python
     - six
 
 test:
-  requires:
-    - pytest
-    - mock
-  source_files:
-    - tests
   imports:
     - procrunner
-  commands:
-    - pytest tests
 
 about:
   home: https://github.com/DiamondLightSource/python-procrunner
