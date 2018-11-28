@@ -9,12 +9,13 @@ source:
   git_tag: v{{ version }}
 
 build:
+  noarch: python
   number: 0
-  script: python setup.py install [not win]
+  script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
   host:
-    - python {{ python }}
+    - python
     - pytest-runner
     - setuptools
     - six
@@ -32,11 +33,12 @@ test:
     - procrunner
   commands:
     - pytest tests
-    - conda inspect linkages -p $PREFIX procrunner  # [not win]
-    - conda inspect objects -p $PREFIX procrunner  # [osx]
 
 about:
   home: https://github.com/DiamondLightSource/python-procrunner
+  license: BSD
+  license_family: BSD
+  license_file: LICENSE
   summary: Versatile utility function to run external processes
   description: Versatile utility function to run external processes
   dev_url: https://github.com/DiamondLightSource/python-procrunner
